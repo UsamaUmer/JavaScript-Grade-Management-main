@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/tailwind.css" />
+    <title>Overall Grades</title>
+  </head>
+  <body class="bg-gray-200">
+    <header class="body-font bg-white text-gray-400">
+      <div
+        class="container mx-auto flex flex-col flex-wrap items-center p-5 md:flex-row"
+      >
+        <nav
+          class="flex flex-wrap items-center justify-center text-base md:ml-auto md:mr-auto"
+        >
+          <a href="students.html" class="mr-5 text-gray-600 hover:text-black"
+            >Students</a
+          >
+          <a href="courses.html" class="mr-5 text-gray-600 hover:text-black"
+            >Courses</a
+          >
+          <a href="grades.html" class="mr-5 text-gray-600 hover:text-black"
+            >Grades</a
+          >
+          <a
+            href="results.html"
+            class="mr-5 font-medium text-black underline hover:text-black"
+            >Results</a
+          >
+        </nav>
+      </div>
+    </header>
+    <div
+      class="mx-auto my-20 flex w-11/12 flex-col items-center justify-center"
+    >
+      <div
+        class="container mx-auto max-h-[85%] min-h-[60%] w-full overflow-y-auto rounded-md bg-white p-10 sm:p-4"
+      >
+        <h2 class="mb-3 text-2xl font-semibold leading-tight">
+          Select Options to Filter Results
+        </h2>
+
+        <div class="overflow-x-auto px-1">
+          <div class="my-2 flex space-x-4">
+            <div class="flex flex-col space-y-2">
+              <label class="block py-0.5 px-0.5 text-sm">Select Course</label>
+              <select class="form-input-select" id="course">
+                <option value="1">All</option>
+              </select>
+            </div>
+          </div>
+          <table class="min-w-full text-xs">
+            <thead class="rounded-t-lg">
+              <tr class="">
+                <th title="Ranking" class="p-3 text-left">Sr. No</th>
+                <th title="Team name" class="p-3 text-left">Student Name</th>
+                <th title="Team name" class="p-3 text-left">Corse Name</th>
+                <th title="Wins" class="p-3 text-left">Course Code</th>
+                <th title="Wins" class="p-3 text-left">Obtained Marks</th>
+                <th title="Wins" class="p-3 text-left">Total Marks</th>
+                <th title="Wins" class="p-3 text-left">Percentage</th>
+                <th title="Wins" class="p-3 text-left">Grade</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <script src=""></script>
+    <script>
+      
+      
+
+window.onload = () => {
+  let selectedCourse = "default";
+  // getting and setting courses
+  const coursesData = getDataFromStorage("courses");
+  const coursesOptions = coursesData
+    .map((course) => {
+      return `<option value='${course.id}'>${course.courseName}</option>`;
+    })
+    .join("");
+
+  const courseFilter = document.querySelector("#course");
+  courseFilter.innerHTML = `<option default value="default">Select Course</option> ${coursesOptions}`;
+
+  // adding event listing on course change
+  courseFilter.addEventListener("change", (e) => {
+    selectedCourse = e.target.value;
+    filterData();
+  });
+
+  let tableData;
+  showTableData([]);
+
+  // function to filter data and
+  function filterData() {
+    const studentsGrades = [];
+
+    if (selectedCourse != "default") {
+      let data = getDataFromStorage("grades");
+      const students = data.map((item) => {
+        return item.studentId;
+      });
+      const uniqueStudents = [...new Set(students)];
+
+      for (let i = 0; i < uniqueStudents.length; i++) {
+        const newGrade = data.filter((item) => {
+          return (
+            item.studentId == uniqueStudents[i] &&
+            item.courseId == selectedCourse
+          );
+        });
+        studentsGrades.push(newGrade);
+      }
+
+      const finalData = [];
+      studentsGrades.forEach((item) => {
+        const data = calculateGrade(item);
+        finalData.push(data);
+      });
+
+      showTableData(finalData.filter(Boolean));
+    }
+  }
+
+  // function to calculate grades
+  function calculateGrade(arr) {
+    if (!arr.length) {
+      return;
+    }
+    const totalMarks = arr.reduce((accumulator, object) => {
+      return accumulator + Number(object.totalMarks);
+    }, 0);
+    const obtainedMarks = arr.reduce((accumulator, object) => {
+      return accumulator + Number(object.obtainedMarks);
+    }, 0);
+
+    return {
+      ...arr[0],
+      obtainedMarks: obtainedMarks,
+      totalMarks: totalMarks,
+      percentage: (obtainedMarks / totalMarks) * 100,
+    };
+  }
+
+  // showing data to the table
+  function showTableData(data) {
+    if (!data || !data.length) {
+      tableData = `<tr rowspan="3" class="h-40"><td colspan="7" class="text-2xl text-center">Select Course to Display Grades</td></tr>`;
+    } else {
+      tableData = data
+        .map((item, index) => {
+          item.percentage = item.percentage.toFixed(2);
+          let grade = null;
+          if (item.percentage < 50) {
+            grade = "F";
+          } else if (item.percentage >= 50 && item.percentage <= 55) {
+            grade = "D";
+          } else if (item.percentage >= 55 && item.percentage <= 60) {
+            grade = "C";
+          } else if (item.percentage >= 60 && item.percentage <= 65) {
+            grade = "C+";
+          } else if (item.percentage >= 65 && item.percentage <= 75) {
+            grade = "B";
+          } else if (item.percentage >= 75 && item.percentage <= 80) {
+            grade = "B+";
+          } else if (item.percentage >= 80 && item.percentage <= 85) {
+            grade = "A-";
+          } else if (item.percentage >= 85 && item.percentage <= 90) {
+            grade = "A";
+          } else if (item.percentage >= 90 && item.percentage <= 100) {
+            grade = "A+";
+          }
+
+          return `<tr class="border-b border-opacity-20">
+           <td class="px-3 py-2 text-left">
+             <span>${index + 1}</span>
+           </td>
+           <td class="px-3 py-2 text-left">
+             <span> ${item.firstName} ${item.lastName} </span>
+           </td>
+           <td class="px-3 py-2">
+             <span>${item.courseName}</span>
+           </td>
+            <td class="px-3 py-2">
+             <span>${item.courseCode}</span>
+           </td>
+          </td>
+          <td class="px-3 py-2">
+             <span>${item.obtainedMarks}</span>
+           </td>
+          <td class="px-3 py-2">
+             <span>${item.totalMarks}</span>
+           </td>
+            <td class="px-3 py-2">
+             <span>${item.percentage}</span>
+           </td>
+           <td class="px-3 py-2">
+             <span>${grade}</span>
+           </td>
+          
+          </tr>`;
+        })
+        .join("");
+    }
+
+    const tableBody = document.querySelector("#tableBody");
+    tableBody.innerHTML = tableData;
+  }
+};
+      </script>
+  </body>
+</html>

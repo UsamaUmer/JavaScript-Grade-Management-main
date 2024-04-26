@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/tailwind.css" />
+    <title>Add Grade</title>
+  </head>
+  <body class="bg-gray-200">
+    <header class="body-font bg-white text-gray-400">
+      <div
+        class="container mx-auto flex flex-col flex-wrap items-center p-5 md:flex-row"
+      >
+        <nav
+          class="flex flex-wrap items-center justify-center text-base md:ml-auto md:mr-auto"
+        >
+          <a href="students.html" class="mr-5 text-gray-600 hover:text-black"
+            >Students</a
+          >
+          <a href="courses.html" class="mr-5 text-gray-600 hover:text-black"
+            >Courses</a
+          >
+          <a
+            href="grades.html"
+            class="mr-5 font-medium text-black underline hover:text-black"
+            >Grades</a
+          >
+          <a href="results.html" class="mr-5 text-gray-600 hover:text-black"
+            >Results</a
+          >
+        </nav>
+      </div>
+    </header>
+    <div class="flex w-full flex-col items-center justify-center bg-gray-200">
+      <div class="mx-auto flex w-3/4 flex-col rounded-md bg-white my-10 px-20 py-10">
+        <h1 class="my-4 py-4 text-3xl font-bold">Add new Grade</h1>
+        <form action="#" class="w-full" method="POST">
+          <div class="flex w-full space-x-10">
+            <div class="flex flex-col">
+              <label class="block py-0.5 px-0.5 text-sm">Select Student</label>
+              <select class="form-input" name="student" id="students">
+                <option>Option 1</option>
+                <option>Option 1</option>
+                <option>Option 1</option>
+                <option>Option 1</option>
+              </select>
+            </div>
+            <div class="flex flex-col">
+              <label class="block py-0.5 px-0.5 text-sm">Select Course</label>
+              <select class="form-input" name="course" id="course">
+                <option>Option 1</option>
+                <option>Option 1</option>
+                <option>Option 1</option>
+                <option>Option 1</option>
+              </select>
+            </div>
+          </div>
+          <div class="mt-4 flex w-full space-x-10">
+            <div class="flex flex-col">
+              <label class="block py-0.5 px-0.5 text-sm">Grade Type</label>
+              <select class="form-input" name="gradeType">
+                <option value="Homework">Homework</option>
+                <option value="Test">Test</option>
+              </select>
+            </div>
+            <div class="flex flex-col">
+              <label class="block py-0.5 px-0.5 text-sm">Assignment #</label>
+              <select class="form-input" name="assignment">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+              </select>
+            </div>
+          </div>
+          <div class="mt-4 flex w-full space-x-10">
+            <div class="flex flex-col">
+              <label class="block py-0.5 px-0.5 text-sm">Obtained Marks</label>
+              <input
+                required
+                name="obtainedMarks"
+                type="number"
+                placeholder="Obtained Marks"
+                class="form-input"
+                min="0"
+                max="100"
+              />
+            </div>
+            <div class="flex flex-col">
+              <label class="block py-0.5 px-0.5 text-sm">Total Marks</label>
+              <input
+                required
+                name="totalMarks"
+                type="number"
+                placeholder="Total Marks"
+                class="form-input"
+                min="0"
+                max="100"
+              />
+            </div>
+          </div>
+          <div class="mt-10 flex max-w-2xl justify-end space-x-3 pr-6">
+            <a href="grades.html" class="secondary-button"> Go Back </a>
+            <button
+              type="submit"
+              class="rounded-md bg-green-600 px-5 py-2.5 text-white"
+            >
+              Add Grade
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <script src=""></script>
+    <script>
+      window.onload = function () {
+        const studentsData = getDataFromStorage("students");
+        const coursesData = getDataFromStorage("courses");
+        const studentsOptions = studentsData
+          .map((student) => {
+            return `<option value='${student.id}'>${student.firstName} ${student.lastName}</option>`;
+          })
+          .join("");
+
+        const coursesOptions = coursesData
+          .map((course) => {
+            return `<option value='${course.id}'>${course.courseName}</option>`;
+          })
+          .join("");
+        const studentsSelectOptions = document.querySelector("#students");
+        const coursesSelectOptions = document.querySelector("#course");
+        coursesSelectOptions.innerHTML = coursesOptions;
+        studentsSelectOptions.innerHTML = studentsOptions;
+
+        const form = document.querySelector("form");
+
+        // form submit handler
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+          const student = form.elements.namedItem("student").value;
+          const course = form.elements.namedItem("course").value;
+          const gradeType = form.elements.namedItem("gradeType").value;
+          const assignment = form.elements.namedItem("assignment").value;
+          const obtainedMarks = form.elements.namedItem("obtainedMarks").value;
+          const totalMarks = form.elements.namedItem("totalMarks").value;
+          const selectedStudent = studentsData.find((std) => std.id == student);
+          const selectedCourse = coursesData.find((crs) => crs.id == course);
+          const { id: studentId, ...newStudent } = selectedStudent;
+          const { id: courseId, ...newCourse } = selectedCourse;
+          const gradeToStore = {
+            courseId,
+            studentId,
+            ...newStudent,
+            ...newCourse,
+            assignment,
+            gradeType,
+            obtainedMarks,
+            totalMarks,
+          };
+
+          saveDataToStorage("grades", gradeToStore);
+          location.href = "grades.html";
+        });
+      };
+    </script>
+  </body>
+</html>

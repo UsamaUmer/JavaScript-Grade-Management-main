@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/tailwind.css" />
+    <title>Add Student</title>
+  </head>
+  <body class="bg-gray-200">
+    <header class="body-font bg-white text-gray-400">
+      <div
+        class="container mx-auto flex flex-col flex-wrap items-center p-5 md:flex-row"
+      >
+        <nav
+          class="flex flex-wrap items-center justify-center text-base md:ml-auto md:mr-auto"
+        >
+          <a href="students.html" class="mr-5 text-gray-600 hover:text-black"
+            >Students</a
+          >
+          <a
+            href="courses.html"
+            class="mr-5 font-medium text-black underline hover:text-black"
+            >Courses</a
+          >
+          <a href="grades.html" class="mr-5 text-gray-600 hover:text-black"
+            >Grades</a
+          >
+          <a href="results.html" class="mr-5 text-gray-600 hover:text-black"
+            >Results</a
+          >
+        </nav>
+      </div>
+    </header>
+    <div class="flex w-full flex-col items-center justify-center bg-gray-200">
+      <div class="mx-auto flex w-4/6 flex-col rounded-md bg-white px-20 my-10 py-10">
+        <h1 class="my-4 py-4 text-3xl font-bold">Add new course</h1>
+        <form action="#" class="w-full" method="POST" onsubmit="submitFunction(event)">
+          <div class="flex w-full space-x-10">
+            <div class="flex flex-col">
+              <label class="block py-0.5 px-0.5 text-sm">Course Name</label>
+              <input
+                autofocus="true"
+                required
+                type="text"
+                name="courseName"
+                placeholder="Couse Name"
+                class="form-input"
+              />
+            </div>
+            <div class="flex flex-col">
+              <label class="block py-0.5 px-0.5 text-sm">Course Code</label>
+              <input
+                required
+                type="text"
+                name="courseCode"
+                placeholder="Course Code"
+                class="form-input"
+              />
+            </div>
+          </div>
+          
+          <div class="mt-10 flex max-w-2xl justify-end space-x-3 pr-6">
+            <a href="courses.html" class="secondary-button"> Go Back </a>
+            <button
+              
+              type="submit"
+              class="rounded-md bg-green-600 px-5 py-2.5 text-white"
+            >
+              Add Student
+            </button>
+          </div>
+        </form>
+        
+      </div>
+    </div>
+    <script src=""></script>
+    <script>
+      //alert("reached");
+      function submitFunction(e){
+        //alert("reached"); 
+        const courses = JSON.parse(window.localStorage.getItem("grades"));
+        e.preventDefault();
+        let courseForm = document.querySelector("form");
+        let courseObject = {
+          courseName: courseForm.courseName.value,
+          courseCode: courseForm.courseCode.value,
+          courseID: crypto.randomUUID() 
+        }
+        if(courses === null){
+          localStorage.setItem("grades", JSON.stringify([courseObject]));
+        }
+        else{
+          let coursesStorage = [...courses, courseObject];
+          localStorage.setItem("grades", JSON.stringify(coursesStorage));
+        }
+      }
+      
+
+
+    // let courseFormData = document.querySelector("form");
+    //       function courseForm() {
+    //         let courseObject = {
+    //           courseName: courseFormData[0].value,
+    //           courseCode: courseFormData[1].value
+    //         }
+    //         alert(Object.values(courseObject));
+    //       }
+
+
+
+
+      // const form = document.querySelector("form");
+
+      // // form submit handler
+      // form.addEventListener("submit", (e) => {
+      //   e.preventDefault();
+      //   const courseName = form.elements.namedItem("courseName").value;
+      //   const courseCode = form.elements.namedItem("courseCode").value;
+      //   const student = {
+      //     courseName,
+      //     courseCode,
+      //   };
+      //   saveDataToStorage("courses", student);
+      //   location.href = "courses.html";
+      // });
+    </script>
+  </body>
+</html>
