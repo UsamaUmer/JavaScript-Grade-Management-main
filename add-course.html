@@ -79,20 +79,20 @@
       //alert("reached");
       function submitFunction(e){
         //alert("reached"); 
-        const courses = JSON.parse(window.localStorage.getItem("grades"));
+        const courses = JSON.parse(window.localStorage.getItem("courses"));
         e.preventDefault();
         let courseForm = document.querySelector("form");
         let courseObject = {
           courseName: courseForm.courseName.value,
           courseCode: courseForm.courseCode.value,
-          courseID: crypto.randomUUID() 
+          id: crypto.randomUUID() 
         }
         if(courses === null){
-          localStorage.setItem("grades", JSON.stringify([courseObject]));
+          localStorage.setItem("courses", JSON.stringify([courseObject]));
         }
         else{
           let coursesStorage = [...courses, courseObject];
-          localStorage.setItem("grades", JSON.stringify(coursesStorage));
+          localStorage.setItem("courses", JSON.stringify(coursesStorage));
         }
       }
       

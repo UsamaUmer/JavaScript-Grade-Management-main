@@ -174,7 +174,7 @@
     <script src=""></script>
     <script>
 
-      let courses = JSON.parse(window.localStorage.getItem("grades"));
+      let courses = JSON.parse(window.localStorage.getItem("courses"));
       let table = document.getElementById("tableBody");
 
       loadFunction = () =>{
@@ -195,9 +195,17 @@
       }
       loadFunction();
 
-      deleteFunction = (e) =>{
-        
+      deleteFunction = (ids) =>{
+       const filteredCourse = courses.filter(filterCourses);
+
+       function filterCourses(idCourse){
+        return ids.target.id !== idCourse.id;
+       }
+       courses = filteredCourse;
+       localStorage.setItem('courses', JSON.stringify(courses));
+       loadFunction();
       }
+      
 
       // window.onload = () => {
       //   const data = getDataFromStorage("courses");

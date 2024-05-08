@@ -122,55 +122,83 @@
     </div>
     <script src=""></script>
     <script>
-      window.onload = function () {
-        const studentsData = getDataFromStorage("students");
-        const coursesData = getDataFromStorage("courses");
-        const studentsOptions = studentsData
-          .map((student) => {
-            return `<option value='${student.id}'>${student.firstName} ${student.lastName}</option>`;
-          })
-          .join("");
 
-        const coursesOptions = coursesData
-          .map((course) => {
-            return `<option value='${course.id}'>${course.courseName}</option>`;
-          })
-          .join("");
-        const studentsSelectOptions = document.querySelector("#students");
-        const coursesSelectOptions = document.querySelector("#course");
-        coursesSelectOptions.innerHTML = coursesOptions;
-        studentsSelectOptions.innerHTML = studentsOptions;
+      let student = JSON.parse(window.localStorage.getItem("students"));
+      //onsole.log(Object.values(student));
+      let course = JSON.parse(localStorage.getItem("courses"));
+      if(student !== null && course !== null){
 
-        const form = document.querySelector("form");
+        let selectStudent = document.getElementById("students");
+        selectStudent.innerHTML = "";
 
-        // form submit handler
-        form.addEventListener("submit", (e) => {
-          e.preventDefault();
-          const student = form.elements.namedItem("student").value;
-          const course = form.elements.namedItem("course").value;
-          const gradeType = form.elements.namedItem("gradeType").value;
-          const assignment = form.elements.namedItem("assignment").value;
-          const obtainedMarks = form.elements.namedItem("obtainedMarks").value;
-          const totalMarks = form.elements.namedItem("totalMarks").value;
-          const selectedStudent = studentsData.find((std) => std.id == student);
-          const selectedCourse = coursesData.find((crs) => crs.id == course);
-          const { id: studentId, ...newStudent } = selectedStudent;
-          const { id: courseId, ...newCourse } = selectedCourse;
-          const gradeToStore = {
-            courseId,
-            studentId,
-            ...newStudent,
-            ...newCourse,
-            assignment,
-            gradeType,
-            obtainedMarks,
-            totalMarks,
-          };
+        let selectCourse = document.getElementById("course");
+        selectCourse.innerHTML = "";
 
-          saveDataToStorage("grades", gradeToStore);
-          location.href = "grades.html";
-        });
-      };
+        student.forEach(item =>{
+          const option = document.createElement("Option");
+          option.value = item.firstName;
+          option.text = item.firstName + " " +item.lastName;
+          selectStudent.add(option);
+        })
+        course.forEach(item =>{
+          const option = document.createElement("Option");
+          option.value = item.courseName;
+          option.text = item.courseName;
+          selectCourse.add(option);
+        })
+      }
+
+
+      // window.onload = function () {
+      //   const studentsData = getDataFromStorage("students");
+      //   const coursesData = getDataFromStorage("courses");
+      //   const studentsOptions = studentsData
+      //     .map((student) => {
+      //       return `<option value='${student.id}'>${student.firstName} ${student.lastName}</option>`;
+      //     })
+      //     .join("");
+
+      //   const coursesOptions = coursesData
+      //     .map((course) => {
+      //       return `<option value='${course.id}'>${course.courseName}</option>`;
+      //     })
+      //     .join("");
+      //   const studentsSelectOptions = document.querySelector("#students");
+      //   const coursesSelectOptions = document.querySelector("#course");
+      //   coursesSelectOptions.innerHTML = coursesOptions;
+      //   studentsSelectOptions.innerHTML = studentsOptions;
+
+      //   const form = document.querySelector("form");
+
+      //   // form submit handler
+      //   form.addEventListener("submit", (e) => {
+      //     e.preventDefault();
+      //     const student = form.elements.namedItem("student").value;
+      //     const course = form.elements.namedItem("course").value;
+      //     const gradeType = form.elements.namedItem("gradeType").value;
+      //     const assignment = form.elements.namedItem("assignment").value;
+      //     const obtainedMarks = form.elements.namedItem("obtainedMarks").value;
+      //     const totalMarks = form.elements.namedItem("totalMarks").value;
+      //     const selectedStudent = studentsData.find((std) => std.id == student);
+      //     const selectedCourse = coursesData.find((crs) => crs.id == course);
+      //     const { id: studentId, ...newStudent } = selectedStudent;
+      //     const { id: courseId, ...newCourse } = selectedCourse;
+      //     const gradeToStore = {
+      //       courseId,
+      //       studentId,
+      //       ...newStudent,
+      //       ...newCourse,
+      //       assignment,
+      //       gradeType,
+      //       obtainedMarks,
+      //       totalMarks,
+      //     };
+
+      //     saveDataToStorage("grades", gradeToStore);
+      //     location.href = "grades.html";
+      //   });
+      // };
+    
     </script>
   </body>
 </html>
