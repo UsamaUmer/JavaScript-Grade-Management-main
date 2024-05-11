@@ -233,7 +233,50 @@
     </div>
     <script src=""></script>
     <script>
-      window.onload = () => {
+
+
+      let grades = JSON.parse(window.localStorage.getItem("grades"));
+      let table = document.getElementById('tableBody');
+
+      callThis = () =>{
+        const gradeStorage = grades.map((value, index) =>{
+          return(
+            `<tr>
+              <td>${index+1}</td>
+              <td>${value.studentName}</td>
+              <td>${value.studentCourse}</td>
+              <td>${value.gradeType}</td>
+              <td>${value.assignment}</td>
+              <td>${value.obtainedMarks}</td>
+              <td>${value.totalMarks}</td>
+              <td><button id="${value.id}" onclick="editFunction(event)">Edit</button></td>
+              <td><button id="${value.id}" onclick="deleteFunction(event)">Delete</button></td>
+            </tr>`
+          );
+        }).join('');
+        table.innerHTML = gradeStorage;
+      }
+
+      callThis();
+
+      deleteFunction = (ids) =>{
+        console.log(ids.target.id);
+        const filteredData = grades.filter(filterDate);
+
+        function filterDate(ages){
+          return ids.target.id !== ages.id;
+        }
+        grades = filteredData;
+        localStorage.setItem("grades", JSON.stringify(grades));
+        callThis();
+      }
+
+      editFunction = (ids) =>{
+        console.log(ids);
+      }
+
+
+     /* window.onload = () => {
         const data = getDataFromStorage("grades");
         let tableData;
 
@@ -397,6 +440,7 @@
           location.reload();
         }, 600);
       }
+    */
     </script>
   </body>
 </html>
