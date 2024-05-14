@@ -407,7 +407,13 @@
 
 
     editFunction = (ids) =>{
-      console.log(ids);
+      const filteredData = students.filter(filterData);
+      console.log(filteredData);
+
+      function filterData(ages){
+        if(ids.target.id === ages.id)
+        console.log(ages.firstName);
+      }
     }
     </script>
   </body>
