@@ -278,14 +278,22 @@
           form.phoneNo.value = ages.phoneNo;
           form.email.value = ages.email;
           function editStudentt(){
-            students.forEach(ages => {
-              //alert(Object.values(students));
-              alert(ages.id);
-              if(ages.id === students.id){
-                alert(students.id);
-              }
-            });
+           for(i =0; i<students.length; i++){
+            if(students[i].id === ages.id){
+              students[i].firstName = form.firstName.value;
+              students[i].lastName = form.lastName.value;
+              students[i].rollNo = form.rollNo.value;
+              students[i].phoneNo = form.phoneNo.value;
+              students[i].email = form.email.value;
+            }
+            //alert(students[i].firstName);
+           }
+           localStorage.setItem("students", JSON.stringify(students))
+           callthis();
+           
+           
             //alert(ages.id);
+            editStudentButton.removeEventListener("click", editStudentt);
             document.querySelector("#formContainer").classList.add("hidden");
           }
           let editStudentButton = document.getElementById("editStudentSubmitButton");
