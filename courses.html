@@ -140,11 +140,10 @@
                 Cancel
               </button>
               <button
-                type="submit"
                 class="rounded-md bg-green-600 px-5 py-2.5 text-white"
                 id="editCourseSubmitButton"
               >
-                Edit Student
+                Edit Course
               </button>
             </div>
           </form>
@@ -176,6 +175,7 @@
 
       let courses = JSON.parse(window.localStorage.getItem("courses"));
       let table = document.getElementById("tableBody");
+      let form = document.querySelector("form");
 
       loadFunction = () =>{
         const coursesStorage = courses.map((value, index) =>{
@@ -209,7 +209,26 @@
       editFunction = (ids) =>{
         document.getElementById("formContainer").classList.remove("hidden");
         
+        courses.forEach((elementID, index) => {
+          if(ids.target.id === elementID.id){
+            form.courseName.value = elementID.courseName;
+            form.courseCode.value = elementID.courseCode;
+          }
+        });
+        document.getElementById("editCourseSubmitButton").onclick = () =>editCourse(ids);
+        
       }
+      function editCourse(ids){
+          courses.forEach((matchID, index) =>{
+            if(ids.target.id === matchID.id){
+              matchID.courseName = form.courseName.value;
+              matchID.courseCode = form.courseCode.value;
+            }
+          });
+          localStorage.setItem("courses", JSON.stringify(courses))
+          loadFunction();
+          document.getElementById("formContainer").classList.add("hidden");
+        }
 
       function hideModal(){
         document.getElementById("formContainer").classList.add("hidden");
