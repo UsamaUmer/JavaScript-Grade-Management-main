@@ -94,6 +94,8 @@
           let coursesStorage = [...courses, courseObject];
           localStorage.setItem("courses", JSON.stringify(coursesStorage));
         }
+        courseForm.courseName.value = "";
+        courseForm.courseCode.value = "";
       }
       
 

@@ -129,6 +129,11 @@
         let newData = [...lastStorageData, objectData];
         localStorage.setItem('students', JSON.stringify(newData));
       }
+      form.firstName.value = "";
+      form.lastName.value = "";
+      form.rollNo.value = "";
+      form.phoneNo.value = "";
+      form.email.value = "";
       //console.log(Object.values(objectData));
       
     }
