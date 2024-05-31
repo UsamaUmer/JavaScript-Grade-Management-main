@@ -76,6 +76,14 @@
         return a*b/c;
       }
       console.log(combine(2,4,6));
+
+      let arr = [1, 2, 3];
+
+      console.log(transformToObjects(arr));
+      function transformToObjects(numberArray) {
+        const newArray = numberArray.map((element)=> ({val: element}));
+        return newArray;
+      }
       
 
 // window.onload = () => {
