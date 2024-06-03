@@ -49,7 +49,6 @@
                 <th title="Ranking" class="p-3 text-left">Sr. No</th>
                 <th title="Team name" class="p-3 text-left">Student Name</th>
                 <th title="Team name" class="p-3 text-left">Corse Name</th>
-                <th title="Wins" class="p-3 text-left">Course Code</th>
                 <th title="Wins" class="p-3 text-left">Grade Type</th>
                 <th title="Wins" class="p-3 text-left">Assignment #</th>
                 <th title="Wins" class="p-3 text-left">Obtained Marks</th>
@@ -149,17 +148,6 @@
             </div>
             <div class="my-3 flex w-full space-x-10">
               <div class="flex flex-col">
-                <label class="block py-0.5 px-0.5 text-sm">Course Code</label>
-                <input
-                  required
-                  type="text"
-                  name="courseCode"
-                  placeholder="Course Code"
-                  class="form-input cursor-not-allowed"
-                  disabled
-                />
-              </div>
-              <div class="flex flex-col">
                 <label class="block py-0.5 px-0.5 text-sm">Grade Type</label>
                 <select class="form-input" name="gradeType">
                   <option>Homework</option>
@@ -237,7 +225,7 @@
 
       let grades = JSON.parse(window.localStorage.getItem("grades"));
       let table = document.getElementById('tableBody');
-
+      let form = document.querySelector("form");
       callThis = () =>{
         const gradeStorage = grades.map((value, index) =>{
           return(
@@ -272,7 +260,18 @@
       }
 
       editFunction = (ids) =>{
-        
+        document.getElementById("formContainer").classList.remove("hidden");
+
+        grades.forEach((elementID, index)=>{
+          if(ids.target.id === elementID.id){
+            form.studentName.value = elementID.studentName;
+            form.courseName.value = elementID.studentCourse;
+            form.gradeType.value = elementID.gradeType;
+            form.assignment.value = elementID.assignment;
+            form.obtainedMarks.value = "elementID.obtainedMarks";
+            form.totalMarks.value = elementID.totalMarks;
+          }
+        });
       }
 
 
