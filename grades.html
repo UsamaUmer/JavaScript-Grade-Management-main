@@ -268,12 +268,29 @@
             form.studentName.value = elementID.studentName;
             form.courseName.value = elementID.studentCourse;
             form.gradeType.value = elementID.gradeType;
-            form.assignment.value = elementID.assignment;
-            form.obtainedMarks.value = "elementID.obtainedMarks";
+            form.obtainedMarks.value = elementID.obtainedMarks;
             form.totalMarks.value = elementID.totalMarks;
           }
         });
+        
+        document.getElementById("editCourseSubmitButton").onclick = () => editGrade(ids);
       }
+
+      function editGrade(ids){
+        grades.forEach((elementID) =>{
+          if(ids.target.id === elementID.id){
+            elementID.gradeType = form.gradeType.value;
+            elementID.obtainedMarks = form.obtainedMarks.value;
+            elementID.totalMarks = form.totalMarks.value;
+          }
+        });
+        localStorage.setItem("grades", JSON.stringify(grades));
+        callThis();
+        document.getElementById("formContainer").classList.add("hidden");
+      }
+
+
+
 
       function hideModal(){
         document.getElementById("formContainer").classList.add("hidden");
