@@ -1,181 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/tailwind.css" />
-    <title>Add Grade</title>
-  </head>
-  <body class="bg-gray-200">
-    <header class="body-font bg-white text-gray-400">
-      <div
-        class="container mx-auto flex flex-col flex-wrap items-center p-5 md:flex-row"
-      >
-        <nav
-          class="flex flex-wrap items-center justify-center text-base md:ml-auto md:mr-auto"
-        >
-          <a href="students.html" class="mr-5 text-gray-600 hover:text-black"
-            >Students</a
-          >
-          <a href="courses.html" class="mr-5 text-gray-600 hover:text-black"
-            >Courses</a
-          >
-          <a
-            href="grades.html"
-            class="mr-5 font-medium text-black underline hover:text-black"
-            >Grades</a
-          >
-          <a href="results.html" class="mr-5 text-gray-600 hover:text-black"
-            >Results</a
-          >
-        </nav>
-      </div>
-    </header>
-    <div class="flex w-full flex-col items-center justify-center bg-gray-200">
-      <div class="mx-auto flex w-3/4 flex-col rounded-md bg-white my-10 px-20 py-10">
-        <h1 class="my-4 py-4 text-3xl font-bold">Add new Grade</h1>
-        <form action="#" class="w-full" method="POST" onsubmit="submitFunction(event)">
-          <div class="flex w-full space-x-10">
-            <div class="flex flex-col">
-              <label class="block py-0.5 px-0.5 text-sm">Select Student</label>
-              <select class="form-input" name="student" id="students">
-                <option>Option 1</option>
-                <option>Option 1</option>
-                <option>Option 1</option>
-                <option>Option 1</option>
-              </select>
-            </div>
-            <div class="flex flex-col">
-              <label class="block py-0.5 px-0.5 text-sm">Select Course</label>
-              <select class="form-input" name="course" id="course">
-                <option>Option 1</option>
-                <option>Option 1</option>
-                <option>Option 1</option>
-                <option>Option 1</option>
-              </select>
-            </div>
-          </div>
-          <div class="mt-4 flex w-full space-x-10">
-            <div class="flex flex-col">
-              <label class="block py-0.5 px-0.5 text-sm">Grade Type</label>
-              <select class="form-input" name="gradeType">
-                <option value="Homework">Homework</option>
-                <option value="Test">Test</option>
-              </select>
-            </div>
-            <div class="flex flex-col">
-              <label class="block py-0.5 px-0.5 text-sm">Assignment #</label>
-              <select class="form-input" name="assignment">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
-                <option value="13">13</option>
-              </select>
-            </div>
-          </div>
-          <div class="mt-4 flex w-full space-x-10">
-            <div class="flex flex-col">
-              <label class="block py-0.5 px-0.5 text-sm">Obtained Marks</label>
-              <input
-                required
-                name="obtainedMarks"
-                type="number"
-                placeholder="Obtained Marks"
-                class="form-input"
-                min="0"
-                max="100"
-              />
-            </div>
-            <div class="flex flex-col">
-              <label class="block py-0.5 px-0.5 text-sm">Total Marks</label>
-              <input
-                required
-                name="totalMarks"
-                type="number"
-                placeholder="Total Marks"
-                class="form-input"
-                min="0"
-                max="100"
-              />
-            </div>
-          </div>
-          <div class="mt-10 flex max-w-2xl justify-end space-x-3 pr-6">
-            <a href="grades.html" class="secondary-button"> Go Back </a>
-            <button
-              type="submit"
-              class="rounded-md bg-green-600 px-5 py-2.5 text-white"
-            >
-              Add Grade
-            </button>
-          </div>
-        </form>
-      </div>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="css/tailwind.css" />
+  <title>Add Grade</title>
+</head>
+
+<body class="bg-gray-200">
+  <header class="body-font bg-white text-gray-400">
+    <div class="container mx-auto flex flex-col flex-wrap items-center p-5 md:flex-row">
+      <nav class="flex flex-wrap items-center justify-center text-base md:ml-auto md:mr-auto">
+        <a href="students.html" class="mr-5 text-gray-600 hover:text-black">Students</a>
+        <a href="courses.html" class="mr-5 text-gray-600 hover:text-black">Courses</a>
+        <a href="grades.html" class="mr-5 font-medium text-black underline hover:text-black">Grades</a>
+        <a href="results.html" class="mr-5 text-gray-600 hover:text-black">Results</a>
+      </nav>
     </div>
-    <script src=""></script>
-    <script>
+  </header>
+  <div class="flex w-full flex-col items-center justify-center bg-gray-200">
+    <div class="mx-auto flex w-3/4 flex-col rounded-md bg-white my-10 px-20 py-10">
+      <h1 class="my-4 py-4 text-3xl font-bold">Add new Grade</h1>
+      <form action="#" class="w-full" method="POST" onsubmit="submitFunction(event)">
+        <div class="flex w-full space-x-10">
+          <div class="flex flex-col">
+            <label class="block py-0.5 px-0.5 text-sm">Select Student</label>
+            <select class="form-input" name="student" id="students">
+              <option>Option 1</option>
+              <option>Option 1</option>
+              <option>Option 1</option>
+              <option>Option 1</option>
+            </select>
+          </div>
+          <div class="flex flex-col">
+            <label class="block py-0.5 px-0.5 text-sm">Select Course</label>
+            <select class="form-input" name="course" id="course">
+              <option>Option 1</option>
+              <option>Option 1</option>
+              <option>Option 1</option>
+              <option>Option 1</option>
+            </select>
+          </div>
+        </div>
+        <div class="mt-4 flex w-full space-x-10">
+          <div class="flex flex-col">
+            <label class="block py-0.5 px-0.5 text-sm">Grade Type</label>
+            <select class="form-input" name="gradeType">
+              <option value="Homework">Homework</option>
+              <option value="Test">Test</option>
+            </select>
+          </div>
+          <div class="flex flex-col">
+            <label class="block py-0.5 px-0.5 text-sm">Assignment #</label>
+            <select class="form-input" name="assignment">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+              <option value="13">13</option>
+            </select>
+          </div>
+        </div>
+        <div class="mt-4 flex w-full space-x-10">
+          <div class="flex flex-col">
+            <label class="block py-0.5 px-0.5 text-sm">Obtained Marks</label>
+            <input required name="obtainedMarks" type="number" placeholder="Obtained Marks" class="form-input" min="0"
+              max="100" />
+          </div>
+          <div class="flex flex-col">
+            <label class="block py-0.5 px-0.5 text-sm">Total Marks</label>
+            <input required name="totalMarks" type="number" placeholder="Total Marks" class="form-input" min="0"
+              max="100" />
+          </div>
+        </div>
+        <div class="mt-10 flex max-w-2xl justify-end space-x-3 pr-6">
+          <a href="grades.html" class="secondary-button"> Go Back </a>
+          <button type="submit" class="rounded-md bg-green-600 px-5 py-2.5 text-white">
+            Add Grade
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <script src=""></script>
+  <script>
 
-      let student = JSON.parse(window.localStorage.getItem("students"));
-      //onsole.log(Object.values(student));
-      let course = JSON.parse(localStorage.getItem("courses"));
-      if(student !== null && course !== null){
+    let student = JSON.parse(window.localStorage.getItem("students"));
 
-        let selectStudent = document.getElementById("students");
-        selectStudent.innerHTML = "";
+    //onsole.log(Object.values(student));
+    let course = JSON.parse(localStorage.getItem("courses"));
 
-        let selectCourse = document.getElementById("courses");
-        selectCourse.innerHTML = "";
+    if (student !== null && course !== null) {
 
-        student.forEach(item =>{
-          const option = document.createElement("Option");
-          option.value = item.firstName;
-          option.text = item.firstName + " " +item.lastName;
-          selectStudent.add(option);
-        })
-        course.forEach(item =>{
-          const option = document.createElement("Option");
-          option.value = item.courseName;
-          option.text = item.courseName;
-          selectCourse.add(option);
-        })
+      let selectStudent = document.getElementById("students");
+      selectStudent.innerHTML = "";
+
+      let selectCourse = document.getElementById("course");
+      selectCourse.innerHTML = "";
+
+      student.forEach(item => {
+        const option = document.createElement("Option");
+        option.value = item.firstName;
+        option.text = item.firstName + " " + item.lastName;
+        selectStudent.add(option);
+      })
+      course.forEach(item => {
+        const option = document.createElement("Option");
+        option.value = item.courseName;
+        option.text = item.courseName;
+        selectCourse.add(option);
+      })
+    }
+
+
+
+    submitFunction = (e) => {
+      const grades = JSON.parse(window.localStorage.getItem("grades"));
+      let gradeForm = document.querySelector("form");
+
+      const gradeObject = {
+        studentName: gradeForm.student.value,
+        studentCourse: gradeForm.course.value,
+        gradeType: gradeForm.gradeType.value,
+        assignment: gradeForm.assignment.value,
+        obtainedMarks: gradeForm.obtainedMarks.value,
+        totalMarks: gradeForm.totalMarks.value,
+        id: crypto.randomUUID()
       }
 
-      
-      
-      submitFunction = (e) =>{
-        const grades = JSON.parse(window.localStorage.getItem("grades"));
-        let gradeForm = document.querySelector("form");
-        
-        const gradeObject = {
-          studentName : gradeForm.student.value,
-          studentCourse : gradeForm.course.value,
-          gradeType : gradeForm.gradeType.value,
-          assignment : gradeForm.assignment.value,
-          obtainedMarks : gradeForm.obtainedMarks.value,
-          totalMarks : gradeForm.totalMarks.value,
-          id: crypto.randomUUID()
-        }
-
-        if(grades === null){
-          localStorage.setItem("grades", JSON.stringify([gradeObject]));
-        }
-        else{
-          let newGrades = [...grades, gradeObject];
-          localStorage.setItem("grades", JSON.stringify(newGrades));
-        }
+      if (grades === null) {
+        localStorage.setItem("grades", JSON.stringify([gradeObject]));
       }
+      else {
+        let newGrades = [...grades, gradeObject];
+        localStorage.setItem("grades", JSON.stringify(newGrades));
+      }
+    }
 
 
-    
-    </script>
-  </body>
+
+  </script>
+</body>
+
 </html>
