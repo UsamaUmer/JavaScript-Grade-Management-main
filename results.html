@@ -35,8 +35,8 @@
         <div class="my-2 flex space-x-4">
           <div class="flex flex-col space-y-2">
             <label class="block py-0.5 px-0.5 text-sm">Select Student</label>
-            <select class="form-input-select" id="student">
-              <option value="1">All</option>
+            <select class="form-input-select" id="student" onchange="updateValue(this.value)">
+              <option>All</option>
             </select>
           </div>
           <div class="flex flex-col space-y-2">
@@ -107,7 +107,7 @@
       students.forEach(item =>{
         const option = document.createElement("Option");
         option.value = item.firstName;
-        option.text = item.firstName + " " +item.lastName;
+        option.text = item.firstName;
         selectStudent.add(option);
       })
 
@@ -141,17 +141,38 @@
 
       callThis();
 
-      
-    function getSelectedValues() {
-    let selectedStudent = selectStudent.value;
-    let selectedCourse = selectCourse.value;
+      function updateValue(value){
+        //let checkValue = document.getElementById.value("student");
+        //alert(value);
+        if(value !== "All"){
+          const gradeStorage = grades.map((value2, index) =>{
+            if( value === value2.studentName){
+          return(
+            `<tr>
+              <td>${index+1}</td>
+              <td>${value2.studentName}</td>
+              <td>${value2.studentCourse}</td>
+              <td>${value2.gradeType}</td>
+              <td>${value2.assignment}</td>
+              <td>${value2.obtainedMarks}</td>
+              <td>${value2.totalMarks}</td>
+            </tr>`
+          );}
+        }).join('');
+        table.innerHTML = gradeStorage;
+          // grades.forEach(elementID=>{
+          //   if(value === elementID.studentName){
+              
+          //   }
+          // });
+        }
+        else{
+          callThis();
+        }
+      }
+      updateValue("All");
 
-    console.log("Selected Student:", selectedStudent);
-    console.log("Selected Course:", selectedCourse);
-}
 
-// Example usage: call this function to get the selected values
-getSelectedValues();
 
     
 
