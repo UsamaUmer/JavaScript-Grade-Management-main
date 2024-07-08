@@ -73,6 +73,18 @@
       function overAllGrade(){
         console.log("Break down the overall grade process and start it, by comparing it with completed assignment");
       }
+
+      let overallGrade = JSON.parse(window.localStorage.getItem("grades"));
+      let selectCourse = document.querySelector("#course");
+
+      if(overallGrade !== null){
+        overallGrade.forEach(item =>{
+          const option = document.createElement("Option");
+          option.value = item.courseName;
+          option.text = item.courseName;
+          selectCourse.add(option);
+        })
+      }
       
 
 // window.onload = () => {
