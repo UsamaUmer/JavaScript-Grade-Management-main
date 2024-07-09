@@ -46,8 +46,8 @@
           <div class="my-2 flex space-x-4">
             <div class="flex flex-col space-y-2">
               <label class="block py-0.5 px-0.5 text-sm">Select Course</label>
-              <select class="form-input-select" id="course">
-                <option value="1">All</option>
+              <select class="form-input-select" id="course" onchange="showPercentage(this.value)">
+                <option value="ALL">All</option>
               </select>
             </div>
           </div>
@@ -76,15 +76,41 @@
 
       let overallGrade = JSON.parse(window.localStorage.getItem("grades"));
       let selectCourse = document.querySelector("#course");
+      let table = document.getElementById("tableBody");
 
       if(overallGrade !== null){
         overallGrade.forEach(item =>{
           const option = document.createElement("Option");
-          option.value = item.courseName;
-          option.text = item.courseName;
+          option.value = item.studentCourse;
+          option.text = item.studentCourse;
           selectCourse.add(option);
         })
       }
+
+      function showPercentage(value){
+        if(value !== "ALL"){alert(value);
+          const showData = overAllGrade.map((value1, index)=>{
+            alert(value);
+            // if(value1.studentCourse === value){  // not working
+            //   alert(value);
+            //   return(
+            //     `<tr>
+            //       <td>${index+1}</td>
+            //       <td>${value2.studentName}</td>
+            //       <td>${value2.studentCourse}</td>
+            //       <td>${value2.gradeType}</td>
+            //       <td>${value2.obtainedMarks}</td>
+            //       <td>${value2.totalMarks}</td>
+            //       <td>${(value2.obtainedMarks/value2.totalMarks)*100}</td>
+            //     </tr>`
+            //   );
+            // }
+          }).join('');
+          table.innerHTML = showData;
+        }
+      }
+
+      showPercentage("ALL");
       
 
 // window.onload = () => {
