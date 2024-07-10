@@ -88,9 +88,27 @@
       }
 
       function showPercentage(value){
-        if(value !== "ALL"){alert(value);
-          const showData = overAllGrade.map((value1, index)=>{
-            alert(value);
+        if(value !== "ALL")
+        {
+          const gradeStorage = overallGrade.map((value2, index) =>{
+            if( value === value2.studentCourse){
+          return(
+            `<tr>
+              <td>${index+1}</td>
+              <td>${value2.studentName}</td>
+              <td>${value2.studentCourse}</td>
+              <td>${value2.gradeType}</td>
+              <td>${value2.obtainedMarks}</td>
+              <td>${value2.totalMarks}</td>
+              <td>${(value2.obtainedMarks/value2.totalMarks)*100}</td>
+            </tr>`
+          );}
+          }).join('');
+          table.innerHTML = gradeStorage;
+          }
+      }
+     // const showData = overAllGrade.map((value1, index)=>{
+            //alert(value);
             // if(value1.studentCourse === value){  // not working
             //   alert(value);
             //   return(
@@ -105,12 +123,9 @@
             //     </tr>`
             //   );
             // }
-          }).join('');
-          table.innerHTML = showData;
-        }
-      }
-
-      showPercentage("ALL");
+          //}).join('');
+         // table.innerHTML = showData;
+      //showPercentage("ALL");
       
 
 // window.onload = () => {
