@@ -77,34 +77,76 @@
       let overallGrade = JSON.parse(window.localStorage.getItem("grades"));
       let selectCourse = document.querySelector("#course");
       let table = document.getElementById("tableBody");
+      let uniqueStudentCourses = [...new Set(overallGrade.map(item => item.studentCourse))];
+      
+
+      
 
       if(overallGrade !== null){
-        overallGrade.forEach(item =>{
+        uniqueStudentCourses.forEach(item =>{
           const option = document.createElement("Option");
-          option.value = item.studentCourse;
-          option.text = item.studentCourse;
+          option.value = item;
+          option.text = item;
           selectCourse.add(option);
         })
       }
+/*
+      // sorting array
 
+      function eliminateDuplicates(arr) {
+  // Create a Set to store unique values
+  let uniqueValues = new Set();
+
+  // Use map to iterate over the array
+  const result = arr.map(item => {
+    // Check if the item is already in the Set
+    if (!uniqueValues.has(item)) {
+      // If not, add it to the Set
+      uniqueValues.add(item);
+      // Return the item (will be added to the resulting array)
+      return item;
+    }
+    // If the item is already in the Set, return undefined (won't be added)
+    return undefined;
+  });
+
+  // Filter out undefined values (duplicates) from the resulting array
+  return result.filter(item => item !== undefined);
+}
+
+// Example usage:
+const array = [1, 2, 2, 3, 4, 4, 5];
+const uniqueArray = eliminateDuplicates(array);
+console.log(uniqueArray); // Output: [1, 2, 3, 4, 5]
+
+
+      //*/
+
+
+
+
+
+      
       function showPercentage(value){
         if(value !== "ALL")
         {
+          let a = 0;
           const gradeStorage = overallGrade.map((value2, index) =>{
             if( value === value2.studentCourse){
-          return(
-            `<tr>
-              <td>${index+1}</td>
-              <td>${value2.studentName}</td>
-              <td>${value2.studentCourse}</td>
-              <td>${value2.gradeType}</td>
-              <td>${value2.obtainedMarks}</td>
-              <td>${value2.totalMarks}</td>
-              <td>${(value2.obtainedMarks/value2.totalMarks)*100}</td>
-            </tr>`
-          );}
+              a++
+              return(
+                `<tr>
+                  <td>${index+1}</td>
+                  <td>${value2.studentName}</td>
+                  <td>${value2.studentCourse}</td>
+                  <td>${value2.gradeType}</td>
+                  <td>${value2.obtainedMarks}</td>
+                  <td>${value2.totalMarks}</td>
+                  <td>${(value2.obtainedMarks/value2.totalMarks)*100}</td>
+                </tr>`
+              );}
           }).join('');
-          table.innerHTML = gradeStorage;
+            table.innerHTML = gradeStorage;
           }
       }
      // const showData = overAllGrade.map((value1, index)=>{
@@ -269,3 +311,7 @@
       </script>
   </body>
 </html>
+
+
+
+
