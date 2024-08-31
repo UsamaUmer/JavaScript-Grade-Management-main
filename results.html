@@ -35,14 +35,14 @@
         <div class="my-2 flex space-x-4">
           <div class="flex flex-col space-y-2">
             <label class="block py-0.5 px-0.5 text-sm">Select Student</label>
-            <select class="form-input-select" id="student" onchange="updateValue(this.value)">
+            <select class="form-input-select" id="student" >
               <option>All</option>
             </select>
           </div>
           <div class="flex flex-col space-y-2">
             <label class="block py-0.5 px-0.5 text-sm">Select Course</label>
             <select class="form-input-select" id="course">
-              <option value="1">All</option>
+              <option value="All">All</option>
             </select>
           </div>
           <div class="flex flex-col space-y-2">
@@ -92,213 +92,103 @@
 
 
   <script>
-    let students = JSON.parse(window.localStorage.getItem("students"));
-    let courses = JSON.parse(window.localStorage.getItem('courses'));
-    let grades = JSON.parse(window.localStorage.getItem("grades"));
+    // let students = JSON.parse(window.localStorage.getItem("students"));
+    // let courses = JSON.parse(window.localStorage.getItem('courses'));
+    // let grades = JSON.parse(window.localStorage.getItem("grades"));
+
+    
 
     let selectStudent = document.querySelector('#student');
     let selectCourse = document.querySelector("#course");
 
     let table = document.getElementById('tableBody');
     
-    if(students !== null && grades !== null && courses !== null){
+    // if(students !== null && grades !== null && courses !== null){
 
       
-      students.forEach(item =>{
-        const option = document.createElement("Option");
-        option.value = item.firstName;
-        option.text = item.firstName;
-        selectStudent.add(option);
-      })
+    //   students.forEach(item =>{
+    //     const option = document.createElement("Option");
+    //     option.value = item.firstName;
+    //     option.text = item.firstName;
+    //     selectStudent.add(option);
+    //   })
 
       
-      courses.forEach(item =>{
-        const option = document.createElement("Option");
-        option.value = item.courseName;
-        option.text = item.courseName;
-        selectCourse.add(option);
-      })
-
-    }
-
-    
-    callThis = () =>{
-        const gradeStorage = grades.map((value, index) =>{
-          return(
-            `<tr>
-              <td>${index+1}</td>
-              <td>${value.studentName}</td>
-              <td>${value.studentCourse}</td>
-              <td>${value.gradeType}</td>
-              <td>${value.assignment}</td>
-              <td>${value.obtainedMarks}</td>
-              <td>${value.totalMarks}</td>
-            </tr>`
-          );
-        }).join('');
-        table.innerHTML = gradeStorage;
-      }
-
-      callThis();
-
-      function updateValue(value){
-        //let checkValue = document.getElementById.value("student");
-        //alert(value);
-        if(value !== "All"){
-          const gradeStorage = grades.map((value2, index) =>{
-            if( value === value2.studentName){
-          return(
-            `<tr>
-              <td>${index+1}</td>
-              <td>${value2.studentName}</td>
-              <td>${value2.studentCourse}</td>
-              <td>${value2.gradeType}</td>
-              <td>${value2.assignment}</td>
-              <td>${value2.obtainedMarks}</td>
-              <td>${value2.totalMarks}</td>
-            </tr>`
-          );}
-        }).join('');
-        table.innerHTML = gradeStorage;
-          // grades.forEach(elementID=>{
-          //   if(value === elementID.studentName){
-              
-          //   }
-          // });
-        }
-        else{
-          callThis();
-        }
-      }
-      updateValue("All");
-
-
-
-    
-
-    // // window.onload = () => {
-    // let selectedStudent = "default",
-    //   selectedCourse = "default",
-    //   selectedGradeType = "default",
-    //   selectedAssignment = "default";
-    // const studentsData = getDataFromStorage("students");
-    // const coursesData = getDataFromStorage("courses");
-    // const studentsOptions = studentsData
-    //   .map((student) => {
-    //     return `<option value='${student.id}'>${student.firstName} ${student.lastName}</option>`;
+    //   courses.forEach(item =>{
+    //     const option = document.createElement("Option");
+    //     option.value = item.courseName;
+    //     option.text = item.courseName;
+    //     selectCourse.add(option);
     //   })
-    //   .join("");
 
-    // const coursesOptions = coursesData
-    //   .map((course) => {
-    //     return `<option value='${course.id}'>${course.courseName}</option>`;
-    //   })
-    //   .join("");
-
-    // const studentFilter = document.querySelector("#student");
-    // studentFilter.innerHTML = `<option default value="default">Select Student</option> ${studentsOptions}`;
-    // const courseFilter = document.querySelector("#course");
-    // courseFilter.innerHTML = `<option default value="default">Select Course</option> ${coursesOptions}`;
-    // const gradeFilter = document.querySelector("#gradeType");
-    // const assignmentFilter = document.querySelector("#assignment");
-
-    // studentFilter.addEventListener("change", (e) => {
-    //   selectedStudent = e.target.value;
-    //   console.log(e.target.value);
-    //   filterData();
-    // });
-
-    // courseFilter.addEventListener("change", (e) => {
-    //   console.log(e.target.value);
-    //   selectedCourse = e.target.value;
-    //   filterData();
-    // });
-
-    // gradeFilter.addEventListener("change", (e) => {
-    //   console.log(e.target.value);
-    //   selectedGradeType = e.target.value;
-    //   filterData();
-    // });
-
-    // assignmentFilter.addEventListener("change", (e) => {
-    //   console.log(e.target.value);
-    //   selectedAssignment = e.target.value;
-    //   filterData();
-    // });
-
-    // const data = getDataFromStorage("grades");
-    // let tableData;
-    // showTableData(data);
-
-    // function filterData() {
-    //   let filteredData = data;
-    //   console.log(filteredData);
-    //   if (selectedStudent != "default") {
-    //     filteredData = filteredData.filter((item) => {
-    //       return item.studentId == selectedStudent;
-    //     });
-    //   }
-    //   if (selectedCourse != "default") {
-    //     filteredData = filteredData.filter((item) => {
-    //       return item.courseId == selectedCourse;
-    //     });
-    //   }
-    //   if (selectedGradeType != "default") {
-    //     filteredData = filteredData.filter((item) => {
-    //       return item.gradeType == selectedGradeType;
-    //     });
-    //   }
-    //   if (selectedAssignment != "default") {
-    //     filteredData = filteredData.filter((item) => {
-    //       return item.assignment == selectedAssignment;
-    //     });
-    //   }
-    //   showTableData(filteredData);
     // }
 
-    // function showTableData(data) {
-    //   if (!data || !data.length) {
-    //     tableData = `<tr rowspan="3" class="h-40"><td colspan="7" class="text-2xl text-center">No Data Found in Database!</td></tr>`;
-    //   } else {
-    //     tableData = data
-    //       .map((item, index) => {
-    //         id = item.id;
-    //         return `<tr class="border-b border-opacity-20">
-    //              <td class="px-3 py-2 text-left">
-    //                <span>${index + 1}</span>
-    //              </td>
-    //              <td class="px-3 py-2 text-left">
-    //                <span> ${item.firstName} ${item.lastName} </span>
-    //              </td>
-    //              <td class="px-3 py-2">
-    //                <span>${item.courseName}</span>
-    //              </td>
-    //               <td class="px-3 py-2">
-    //                <span>${item.courseCode}</span>
-    //              </td>
-    //             </td>
-    //               <td class="px-3 py-2">
-    //                <span>${item.gradeType}</span>
-    //              </td>
-    //              <td class="px-3 py-2">
-    //                <span>${item.assignment}</span>
-    //              </td>
-    //             <td class="px-3 py-2">
-    //                <span>${item.obtainedMarks}</span>
-    //              </td>
-    //             <td class="px-3 py-2">
-    //                <span>${item.totalMarks}</span>
-    //              </td>
-                
-    //             </tr>`;
-    //       })
-    //       .join("");
+    
+    // callThis = () =>{
+    //     const gradeStorage = grades.map((value, index) =>{
+    //       return(
+    //         `<tr>
+    //           <td>${index+1}</td>
+    //           <td>${value.studentName}</td>
+    //           <td>${value.studentCourse}</td>
+    //           <td>${value.gradeType}</td>
+    //           <td>${value.assignment}</td>
+    //           <td>${value.obtainedMarks}</td>
+    //           <td>${value.totalMarks}</td>
+    //         </tr>`
+    //       );
+    //     }).join('');
+    //     table.innerHTML = gradeStorage;
     //   }
 
-    //   const tableBody = document.querySelector("#tableBody");
-    //   tableBody.innerHTML = tableData;
-    // }
-    //   };
+    //   callThis();
+
+      // document.querySelector("#student").addEventListener("change", (e) => {
+      //     //selectedStudent = e.target.value;
+      //     console.log(e.target.value);
+      //     filterData();
+      //   });
+
+
+      window.onload = () =>{
+        let selectStudentName, selectCourseName, selectGradeType, selectAssignment = "default";
+        let students = JSON.parse(window.localStorage.getItem("students"));
+        let courses = JSON.parse(window.localStorage.getItem('courses'));
+        let grades = JSON.parse(window.localStorage.getItem("grades"));
+
+        const studentSelectOption = students.map((student) =>{
+          return `<option value='${student.id}'>${student.firstName}</option>`;
+        });
+        console.log(studentSelectOption);
+
+        const courseSelectOption = courses.map((course) =>{
+          return `<option value='${course.id}'>${course.courseName}</option>`;
+        });
+
+        document.querySelector("#student").addEventListener("change", (e) => {
+          selectStudentName = e.target.value;
+          console.log(e.target.value);
+          filterData();
+        });
+
+        let tableData;
+
+        function filterData(){
+          let filteredData = grades;
+          console.log(filteredData);
+        }
+
+
+        
+
+      }
+        
+        
+
+        
+
+    
+
   
   </script>
 </body>
