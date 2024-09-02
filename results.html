@@ -151,33 +151,72 @@
 
 
       window.onload = () =>{
-        let selectStudentName, selectCourseName, selectGradeType, selectAssignment = "default";
+        let selectStudentName = "default", 
+        selectCourseName = "default", 
+        selectGradeType = "default", 
+        selectAssignment = "default";
         let students = JSON.parse(window.localStorage.getItem("students"));
         let courses = JSON.parse(window.localStorage.getItem('courses'));
         let grades = JSON.parse(window.localStorage.getItem("grades"));
 
         const studentSelectOption = students.map((student) =>{
-          return `<option value='${student.id}'>${student.firstName}</option>`;
-        });
-        console.log(studentSelectOption);
+          return `<option value='${student.firstName}'>${student.firstName}</option>`;
+        }).join("");
+        //console.log(studentSelectOption);
 
         const courseSelectOption = courses.map((course) =>{
           return `<option value='${course.id}'>${course.courseName}</option>`;
-        });
+        }).join("");
+        //console.log(courseSelectOption);
+        const studentFilter = document.querySelector("#student");
+        studentFilter.innerHTML = `<option default value="default">Select Student</option> ${studentSelectOption}`;
+        const courseFilter = document.querySelector("#course");
+        courseFilter.innerHTML = `<option default value="default">Select Course</option> ${courseSelectOption}`;
+        const gradeFilter = document.querySelector("#gradeType");
+        const assignmentFilter = document.querySelector("#assignment");
 
-        document.querySelector("#student").addEventListener("change", (e) => {
+        studentFilter.addEventListener("change", (e) =>{
           selectStudentName = e.target.value;
-          console.log(e.target.value);
+          alert(e.target.value);
           filterData();
         });
+        
 
         let tableData;
 
         function filterData(){
           let filteredData = grades;
-          console.log(filteredData);
+          //console.log(filteredData);
+          if(selectStudentName !== "default"){
+            filteredData = filteredData.filter((item) =>{
+              return item.studentName === selectStudentName;
+            })
+          }
+
+          showTableData(filteredData);
         }
 
+        function showTableData(filterData){
+          if(!filterData){
+            tableData = `<tr><td>No Data Found in Database!</td></tr>`;
+          }
+          else{
+            tableData = filterData.map((item, index) =>{
+              id = item.id;
+              return `<tr>
+               <td>${index+1}</td>
+               <td>${item.studentName}</td>
+               <td>${item.studentCourse}</td>
+               <td>${item.gradeType}</td>
+               <td>${item.assignment}</td>
+               <td>${item.obtainedMarks}</td>
+               <td>${item.totalMarks}</td>
+             </tr>`
+            }).join("");
+          }
+          const tableBody = document.querySelector("#tableBody");
+          tableBody.innerHTML = tableData;
+        }
 
         
 
