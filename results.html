@@ -165,21 +165,43 @@
         //console.log(studentSelectOption);
 
         const courseSelectOption = courses.map((course) =>{
-          return `<option value='${course.id}'>${course.courseName}</option>`;
+          return `<option value='${course.courseName}'>${course.courseName}</option>`;
         }).join("");
         //console.log(courseSelectOption);
         const studentFilter = document.querySelector("#student");
         studentFilter.innerHTML = `<option default value="default">Select Student</option> ${studentSelectOption}`;
-        const courseFilter = document.querySelector("#course");
-        courseFilter.innerHTML = `<option default value="default">Select Course</option> ${courseSelectOption}`;
-        const gradeFilter = document.querySelector("#gradeType");
-        const assignmentFilter = document.querySelector("#assignment");
-
+        
         studentFilter.addEventListener("change", (e) =>{
           selectStudentName = e.target.value;
-          alert(e.target.value);
+          //console.log(e.target.value);
           filterData();
         });
+
+        const courseFilter = document.querySelector("#course");
+        courseFilter.innerHTML = `<option default value="default">Select Course</option> ${courseSelectOption}`;
+        
+        courseFilter.addEventListener("change", (e) =>{
+          selectCourseName = e.target.value;
+          console.log(selectCourseName);
+          filterData();
+        })
+        
+        const gradeFilter = document.querySelector("#gradeType");
+
+        gradeFilter.addEventListener("change", (e) =>{
+          selectGradeType = e.target.value;
+          filterData();
+        })
+
+        const assignmentFilter = document.querySelector("#assignment");
+
+        assignmentFilter.addEventListener("change", (e)=>{
+          selectAssignment = e.target.value;
+          filterData();
+        })
+
+        
+        
         
 
         let tableData;
@@ -190,6 +212,21 @@
           if(selectStudentName !== "default"){
             filteredData = filteredData.filter((item) =>{
               return item.studentName === selectStudentName;
+            })
+          }
+          if(selectCourseName !== "default"){
+            filteredData = filteredData.filter((item) =>{
+              return item.studentCourse === selectCourseName;
+            })
+          }
+          if(selectGradeType !== "default"){
+            filteredData = filteredData.filter((item) =>{
+              return item.gradeType === selectGradeType;
+            })
+          }
+          if(selectAssignment !== "default"){
+            filteredData = filteredData.filter((item) =>{
+              return item.assignment === selectAssignment;
             })
           }
 
